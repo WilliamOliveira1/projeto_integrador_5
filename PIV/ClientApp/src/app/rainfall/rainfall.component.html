@@ -1,0 +1,85 @@
+<table mat-table [dataSource]="dataSource1" multiTemplateDataRows class="mat-elevation-z8">
+  <ng-container matColumnDef="year">
+    <th mat-header-cell *matHeaderCellDef> Ano </th>
+    <td mat-cell *matCellDef="let element"> {{element.year}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="month">
+    <th mat-header-cell *matHeaderCellDef> Mês </th>
+    <td mat-cell *matCellDef="let element"> {{element.month}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="averagePrecipitation">
+    <th mat-header-cell *matHeaderCellDef> precipitação pluviométrica (média mm³) </th>
+    <td mat-cell *matCellDef="let element">
+        {{element.averagePrecipitation | number:'1.3-3'}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="averageTemperatureC">
+    <th mat-header-cell *matHeaderCellDef> Temperatura (média C°) </th>
+    <td mat-cell *matCellDef="let element">
+        {{element.averageTemperatureC | number:'1.1-1'}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="expand">
+    <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button
+              aria-label="expand row"
+              (click)="toggle(element); $event.stopPropagation()"
+              class="example-toggle-button open-table-item-button"
+              [class.example-toggle-button-expanded]="isExpanded(element)">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+      <div class="example-element-detail-wrapper"
+           [class.example-element-detail-wrapper-expanded]="isExpanded(element)">        
+        <div class="example-element-detail">
+          <div>
+            <canvas #chartCanvas></canvas>
+          </div>
+          <div class="example-element-description">           
+            <table mat-table [dataSource]="element.dailyWeatherData" class="mat-elevation-z8">              
+              <ng-container matColumnDef="infoDate">
+                <th mat-header-cell *matHeaderCellDef> Data </th>
+                <td mat-cell *matCellDef="let daily"> {{daily.infoDate | date}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="precipitation">
+                <th mat-header-cell *matHeaderCellDef> Precipitação </th>
+                <td mat-cell *matCellDef="let daily" > {{daily.precipitation | number:'1.3-3'}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="temperatureC">
+                <th mat-header-cell *matHeaderCellDef> Temperatura (C°) </th>
+                <td mat-cell *matCellDef="let daily"> {{daily.temperatureC | number:'1.1-1'}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="['infoDate', 'precipitation', 'temperatureC']"></tr>
+              <tr mat-row *matRowDef="let daily; columns: ['infoDate', 'precipitation', 'temperatureC']" (click)="openModal(daily)"></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+      class="example-element-row"
+      [class.example-expanded-row]="isExpanded(element)"
+      [ngClass]="{'teste-vermelho': element.averagePrecipitation === 0 && element.averageTemperatureC === 0}"
+      (click)="toggle(element)">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>
+
+ <mat-paginator class="m-4" [pageSize]="pageSize" [pageIndex]="pageNo"
+                [pageSizeOptions]="[5, 12, 24, 100]" (page)="pageEvents($event)">
+ </mat-paginator>

@@ -1,0 +1,56 @@
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Menu visão geral </mat-panel-title>
+      <mat-panel-description>Sobre os tabela de dados</mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-list role="list">
+      <mat-list-item role="listitem">- Ao acessar esta página, você terá uma compilação geral do banco de dados, organizados anualmente e subdivididos mensalmente;</mat-list-item>
+      <mat-list-item role="listitem">- Informações referentes ao mês são acumulativas ao período e quantidade de dias aferidas manualmente;</mat-list-item>
+      <mat-list-item role="listitem">- Dados inconsistentes (fundo:vermelho) foram desconsiderados pelo Sistema;</mat-list-item>
+    </mat-list>
+    <mat-accordion>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Dados do mês </mat-panel-title>
+          <mat-panel-description>Detalhamento do mês preterido </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+          <mat-list-item role="listitem">- Disposição diária das informações de temperatura e precipitação pluviométrica do mês pesquisado;</mat-list-item>
+          <mat-list-item role="listitem">- Gráfico das métricas de temperatura e precipitação pluviométrica do mês pesquisado;</mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion class="m-2">
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Análise detalhada do dia</mat-panel-title>
+          <mat-panel-description>Detalhamento do dia preterido ao clicar na linha</mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+          <mat-list-item role="listitem">- Disposição das informações de temperatura e precipitação pluviométrica do dia pesquisado;</mat-list-item>
+          <mat-list-item role="listitem">- Gráfico das métricas de temperatura e precipitação pluviométrica do dia pesquisado;</mat-list-item>
+          <mat-list-item role="listitem">- Análise comportamental, em tempo de execução, das informações dispostas;</mat-list-item>
+          <mat-list-item role="listitem">- Análise antecipativa da data pesquisada;</mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<mat-accordion class="m-4">
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Índices adotados </mat-panel-title>
+      <mat-panel-description> informações sobre os índices adotados </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-list role="list">
+      <mat-list-item role="listitem">Link: <a href="https://canaltech.com.br/meio-ambiente/o-que-e-indice-pluviometrico-e-como-ele-mede-milimetros-de-chuva-240698/" target="_blank">canaltech</a> - acessado dia 01.10.2024;</mat-list-item>
+      <mat-list-item role="listitem">- Chuva fraca: abaixo de 5,0 mm/h;</mat-list-item>
+      <mat-list-item role="listitem">- Chuva moderada: entre 5,0 e 25 mm/h;</mat-list-item>
+      <mat-list-item role="listitem">- Chuva forte: entre 25,1 e 50 mm/h;</mat-list-item>
+      <mat-list-item role="listitem">- Chuva muito forte: acima de 50,0 mm/h;</mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+</mat-accordion>
+

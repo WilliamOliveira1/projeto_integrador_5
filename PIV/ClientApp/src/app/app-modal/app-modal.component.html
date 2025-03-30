@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>Analise de dados do periodo selecionado</h2>
+
+<mat-accordion class="m-4">
+  <mat-expansion-panel class="m-4 mb-0" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Periodo</mat-panel-title>
+      <mat-panel-description>Dados a serem considerados no período</mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-list role="list">
+      <mat-list-item role="listitem">Parâmetro geral de medição manual no período => {{generalParam}}</mat-list-item>
+      <mat-list-item role="listitem">Datas desconsideradas por falta de medição manual no período => {{disregardedData}}</mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<mat-accordion class="m-4">
+  <mat-expansion-panel class="m-4 mb-0" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Periodo - temperatura</mat-panel-title>
+      <mat-panel-description>Dados a serem considerados de temperartura</mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-list role="list">
+      <mat-list-item role="listitem">Temperatura máxima registrada no período => {{temperatureMax}}°C</mat-list-item>
+      <mat-list-item role="listitem">Temperatura mínima registrada no período => {{temperatureMin}}°C</mat-list-item>
+      <mat-list-item role="listitem">Temperatura média registrada no período => {{temperatureAvg | number:'1.1-1'}}°C</mat-list-item>
+      <mat-list-item role="listitem">Temperatura moda registrada no período  => {{temperatureMode}}°C</mat-list-item>
+      <mat-list-item role="listitem">Temperatura mediana registrada no período => {{temperatureMedian}}°C</mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<mat-accordion class="m-4">
+  <mat-expansion-panel class="m-4 mb-0" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Periodo - precipitação pluviométrica</mat-panel-title>
+      <mat-panel-description>Dados a serem considerados de precipitação pluviométrica</mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-list role="list">
+      <mat-list-item role="listitem">Precipitação pluviométrica máxima registrada no período => {{precipitationMax}}mm</mat-list-item>
+      <mat-list-item role="listitem">Precipitação pluviométrica mínima registrada no período => {{precipitationMin}}mm</mat-list-item>
+      <mat-list-item role="listitem">Precipitação pluviométrica média registrada no período => {{precipitationAvg | number:'1.3-3' }}mm</mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Fechar</button>
+</mat-dialog-actions>
