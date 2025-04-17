@@ -38,7 +38,7 @@ namespace PIV.Services
                         // Map the CSV column "infoDate" to the property "InfoDate" in the Weather class
                         csv.Context.RegisterClassMap<WeatherMap>();
 
-                        var records = csv.GetRecords<Weather>().Reverse().ToList();
+                        var records = csv.GetRecords<Weather>().ToList();
                         Parallel.ForEach(records, record =>
                         {
                             record.ID = 0;
@@ -79,7 +79,6 @@ namespace PIV.Services
                 if (_context.Weather.Count() < 30000)
                 {
                     _context.Weather.Add(wheather);
-                    _context.SaveChanges();
                     return true;
                 }               
             }

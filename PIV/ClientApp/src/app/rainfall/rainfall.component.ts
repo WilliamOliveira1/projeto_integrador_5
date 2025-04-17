@@ -21,7 +21,7 @@ export class RainfallComponent {
   @ViewChild(MatPaginator)
     paginator!: MatPaginator;
   dataSource1: MatTableDataSource<Weather> = new MatTableDataSource<Weather>();
-  columnsToDisplay1 = ['year', 'month', 'averagePrecipitation', 'averageTemperatureC'];
+columnsToDisplay1 = ['year', 'month', 'averagePrecipitation', 'averageTemperatureC', 'averageHumidity'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay1, 'expand'];
   expandedElement: Weather | null | undefined;
   weatherData: Weather[] = [];
@@ -36,20 +36,10 @@ export class RainfallComponent {
   ngOnInit(): void {
     this.pageSize = 5;
     this.pageNo = 0;
-    this.rainfallService.getWeatherData().subscribe(
-      (data: Weather[]) => {
-        this.weatherData = data;
-        this.dataSource1.data = this.weatherData;     
-      },
-      (error: any) => {
-        this.errorMessage = `Erro ao obter dados do tempo: ${error.message}`;
-        console.error('Erro ao obter dados do tempo', error);
-      }
-    );
-
     //this.rainfallService.postRainfallData().subscribe(
     //  (data: Weather[]) => {
     //    debugger;
+         
     //  },
     //  (error: any) => {
     //    debugger;
@@ -57,6 +47,17 @@ export class RainfallComponent {
     //    console.error('Erro ao obter dados do tempo', error);
     //  }
     //);
+
+    this.rainfallService.getWeatherData().subscribe(
+      (data: Weather[]) => {
+        this.weatherData = data;
+        this.dataSource1.data = this.weatherData;
+      },
+      (error: any) => {
+        this.errorMessage = `Erro ao obter dados do tempo: ${error.message}`;
+        console.error('Erro ao obter dados do tempo', error);
+      }
+    );
   }
 
   ngAfterViewInit() {
@@ -116,12 +117,14 @@ export class RainfallComponent {
   }
 
   prepareChartData(dailyWeatherData: ExportDailyWeather[], index: number): void {
+    console.log('test', dailyWeatherData);
     const labels: string[] = [];
     dailyWeatherData.forEach(d => {
       const date = new Date(d.infoDate.toString()).getDate().toString()
       labels.push(date);
     });
-    
+
+    const humidityData = dailyWeatherData.map(d => d.humidity);
     const temperatureData = dailyWeatherData.map(d => d.temperatureC);
     const precipitationData = dailyWeatherData.map(d => d.precipitation);
     if (this.charts[index]) {
@@ -132,16 +135,16 @@ export class RainfallComponent {
     const firstDate = new Date(dailyWeatherData[0].infoDate);
     const month = firstDate.toLocaleString('default', { month: 'long' });
     const year = firstDate.getFullYear();
-
+    const useHumidity = dailyWeatherData.some(d => d.humidity > 0);
     this.charts[index] = new Chart(canvas, {
       type: 'line',
       data: {
         labels: labels,
         datasets: [
           {
-            label: 'Temperatura',
-            data: temperatureData,
-            borderColor: 'red',
+            label: useHumidity ? 'Umidade' : 'Temperatura',
+            data: useHumidity ? humidityData : temperatureData,
+            borderColor: useHumidity ? 'green' : 'red',
             fill: false
           },
           {

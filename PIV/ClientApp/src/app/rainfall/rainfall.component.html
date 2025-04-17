@@ -12,14 +12,21 @@
   <ng-container matColumnDef="averagePrecipitation">
     <th mat-header-cell *matHeaderCellDef> precipitação pluviométrica (média mm³) </th>
     <td mat-cell *matCellDef="let element">
-        {{element.averagePrecipitation | number:'1.3-3'}}
+      {{element.averagePrecipitation | number:'1.3-3'}}
     </td>
   </ng-container>
 
   <ng-container matColumnDef="averageTemperatureC">
     <th mat-header-cell *matHeaderCellDef> Temperatura (média C°) </th>
     <td mat-cell *matCellDef="let element">
-        {{element.averageTemperatureC | number:'1.1-1'}}
+      {{element.averageTemperatureC | number:'1.1-1'}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="averageHumidity">
+    <th mat-header-cell *matHeaderCellDef> Umidade (média %) </th>
+    <td mat-cell *matCellDef="let element">
+      {{element.averageHumidity | number:'1.1-1'}}
     </td>
   </ng-container>
 
@@ -39,13 +46,13 @@
   <ng-container matColumnDef="expandedDetail">
     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
       <div class="example-element-detail-wrapper"
-           [class.example-element-detail-wrapper-expanded]="isExpanded(element)">        
+           [class.example-element-detail-wrapper-expanded]="isExpanded(element)">
         <div class="example-element-detail">
           <div>
             <canvas #chartCanvas></canvas>
           </div>
-          <div class="example-element-description">           
-            <table mat-table [dataSource]="element.dailyWeatherData" class="mat-elevation-z8">              
+          <div class="example-element-description">
+            <table mat-table [dataSource]="element.dailyWeatherData" class="mat-elevation-z8">
               <ng-container matColumnDef="infoDate">
                 <th mat-header-cell *matHeaderCellDef> Data </th>
                 <td mat-cell *matCellDef="let daily"> {{daily.infoDate | date}} </td>
@@ -53,7 +60,7 @@
 
               <ng-container matColumnDef="precipitation">
                 <th mat-header-cell *matHeaderCellDef> Precipitação </th>
-                <td mat-cell *matCellDef="let daily" > {{daily.precipitation | number:'1.3-3'}} </td>
+                <td mat-cell *matCellDef="let daily"> {{daily.precipitation | number:'1.3-3'}} </td>
               </ng-container>
 
               <ng-container matColumnDef="temperatureC">
@@ -61,8 +68,13 @@
                 <td mat-cell *matCellDef="let daily"> {{daily.temperatureC | number:'1.1-1'}} </td>
               </ng-container>
 
-              <tr mat-header-row *matHeaderRowDef="['infoDate', 'precipitation', 'temperatureC']"></tr>
-              <tr mat-row *matRowDef="let daily; columns: ['infoDate', 'precipitation', 'temperatureC']" (click)="openModal(daily)"></tr>
+              <ng-container matColumnDef="humidity">
+                <th mat-header-cell *matHeaderCellDef> Umidade </th>
+                <td mat-cell *matCellDef="let daily"> {{daily.humidity | number:'1.1-1'}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="['infoDate', 'precipitation', 'temperatureC', 'humidity']"></tr>
+              <tr mat-row *matRowDef="let daily; columns: ['infoDate', 'precipitation', 'temperatureC', 'humidity']" (click)="openModal(daily)"></tr>
             </table>
           </div>
         </div>

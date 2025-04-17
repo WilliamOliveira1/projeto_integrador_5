@@ -10,6 +10,7 @@ namespace PIV.Mapper
             Map(m => m.ID).Name("ID");
             Map(m => m.InfoDate).Name("infoDate").TypeConverterOption.Format("yyyy-MM-dd");
             Map(m => m.Precipitation).Name("Precipitation");
+            Map(m => m.Humidity).Name("Humidity");
             Map(m => m.TemperatureC).Name("TemperatureC");
         }
     }

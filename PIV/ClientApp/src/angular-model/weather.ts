@@ -9,5 +9,6 @@ export type Weather = {
 export type ExportDailyWeather = {
   infoDate: Date;
   precipitation: number,
+  humidity: number,
   temperatureC: number
 }

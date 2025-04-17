@@ -14,6 +14,7 @@ namespace PIV.Mapper
                     Year = g.Key.Year,
                     Month = g.Key.Month,
                     AveragePrecipitation = g.Average(w => w.Precipitation),
+                    AverageHumidity = g.Average(w => w.Humidity),
                     AverageTemperatureC = g.Average(w => w.TemperatureC),
                     DailyWeatherData = g.ToList()
                 })
