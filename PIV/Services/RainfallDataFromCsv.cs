@@ -43,8 +43,8 @@ namespace PIV.Services
         public bool saveNewRainfallData(string humidity, string temperature, string date)
         {
             if (float.TryParse(humidity, out float parsedHumidity) &&
-         float.TryParse(temperature, out float parsedTemperature) &&
-         DateTime.TryParse(date, out DateTime parsedDate))
+                float.TryParse(temperature, out float parsedTemperature) &&
+                 DateTime.TryParse(date, out DateTime parsedDate))
             {
                 var weather = new Weather
                 {

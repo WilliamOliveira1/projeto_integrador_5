@@ -78,7 +78,8 @@ namespace PIV.Services
             {
                 if (_context.Weather.Count() < 30000)
                 {
-                    _context.Weather.Add(wheather);
+                    var data = _context.Weather.Add(wheather);
+                    _context.SaveChanges();
                     return true;
                 }               
             }

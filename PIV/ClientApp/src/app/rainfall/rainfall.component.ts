@@ -39,7 +39,7 @@ columnsToDisplay1 = ['year', 'month', 'averagePrecipitation', 'averageTemperatur
     //this.rainfallService.postRainfallData().subscribe(
     //  (data: Weather[]) => {
     //    debugger;
-         
+        
     //  },
     //  (error: any) => {
     //    debugger;
@@ -50,7 +50,7 @@ columnsToDisplay1 = ['year', 'month', 'averagePrecipitation', 'averageTemperatur
 
     this.rainfallService.getWeatherData().subscribe(
       (data: Weather[]) => {
-        this.weatherData = data;
+        this.weatherData = data.reverse();
         this.dataSource1.data = this.weatherData;
       },
       (error: any) => {
@@ -142,15 +142,15 @@ columnsToDisplay1 = ['year', 'month', 'averagePrecipitation', 'averageTemperatur
         labels: labels,
         datasets: [
           {
-            label: useHumidity ? 'Umidade' : 'Temperatura',
-            data: useHumidity ? humidityData : temperatureData,
-            borderColor: useHumidity ? 'green' : 'red',
+            label: 'Temperatura',
+            data: temperatureData,
+            borderColor: 'red',
             fill: false
           },
           {
-            label: 'Precipitação Pluviométrica',
-            data: precipitationData,
-            borderColor: 'blue',
+            label: useHumidity ? 'Umidade' : 'Precipitação Pluviométrica',
+            data: useHumidity ? humidityData : precipitationData,
+            borderColor: useHumidity ? 'green' : 'blue',
             fill: false
           }
         ]
