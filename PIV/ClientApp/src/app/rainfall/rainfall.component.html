@@ -10,7 +10,7 @@
   </ng-container>
 
   <ng-container matColumnDef="averagePrecipitation">
-    <th mat-header-cell *matHeaderCellDef> precipitação pluviométrica (média mm³) </th>
+    <th mat-header-cell *matHeaderCellDef> precipitação pluviométrica (média mm) </th>
     <td mat-cell *matCellDef="let element">
       {{element.averagePrecipitation | number:'1.3-3'}}
     </td>
@@ -24,7 +24,7 @@
   </ng-container>
 
   <ng-container matColumnDef="averageHumidity">
-    <th mat-header-cell *matHeaderCellDef> Umidade (média %) </th>
+    <th mat-header-cell *matHeaderCellDef> Umidade (média) </th>
     <td mat-cell *matCellDef="let element">
       {{element.averageHumidity | number:'1.1-1'}}
     </td>
@@ -55,7 +55,7 @@
             <table mat-table [dataSource]="element.dailyWeatherData" class="mat-elevation-z8">
               <ng-container matColumnDef="infoDate">
                 <th mat-header-cell *matHeaderCellDef> Data </th>
-                <td mat-cell *matCellDef="let daily"> {{daily.infoDate | date}} </td>
+                <td mat-cell *matCellDef="let daily"> {{daily.infoDate | date }} </td>
               </ng-container>
 
               <ng-container matColumnDef="precipitation">

@@ -43,6 +43,20 @@
   </mat-expansion-panel>
 </mat-accordion>
 
+<mat-accordion class="m-4">
+  <mat-expansion-panel class="m-4 mb-0" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Periodo - umidade</mat-panel-title>
+      <mat-panel-description>Dados a serem considerados de umidade</mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-list role="list">
+      <mat-list-item role="listitem">Umidade máxima registrada no período => {{humidityMax}}</mat-list-item>
+      <mat-list-item role="listitem">Umidade mínima registrada no período => {{humidityMin}}</mat-list-item>
+      <mat-list-item role="listitem">Umidade média registrada no período => {{humidityAvg | number:'1.3-3' }}</mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+</mat-accordion>
+
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Fechar</button>
 </mat-dialog-actions>

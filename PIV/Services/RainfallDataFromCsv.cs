@@ -30,6 +30,7 @@ namespace PIV.Services
 
         public async Task StartRainfallDataGetterAsync(CancellationToken cancellationToken)
         {
+            _saveDataFromCsvService.DeleteAllWeatherData();
             using (var scope = _serviceProvider.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();

@@ -29,10 +29,11 @@ namespace PIV.Services
                     using (var reader = new StreamReader(csvFilePath))
                     using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
                     {
-                        Delimiter = ",",
+                        Delimiter = ";",
                         HasHeaderRecord = true,
                         HeaderValidated = null,
-                        MissingFieldFound = null
+                        MissingFieldFound = null,
+                        BadDataFound = null,
                     }))
                     {
                         // Map the CSV column "infoDate" to the property "InfoDate" in the Weather class

@@ -18,6 +18,9 @@ export class AppModalComponent {
   precipitationMax: string | undefined;
   precipitationMin: string | undefined;
   precipitationAvg: string | undefined;
+  humidityMax: string | undefined;
+  humidityMin: string | undefined;
+  humidityAvg: string | undefined;
   modalDailyData: ExportDailyWeather;
   weatherData: Weather[];
   constructor(@Inject(MAT_DIALOG_DATA) public data: { daily: ExportDailyWeather, weatherData: Weather[] }) {
@@ -86,7 +89,6 @@ export class AppModalComponent {
     }
     this.temperatureMode = modeTemperature.toString();
 
-    debugger;
     const maxPrecipitation = Math.max(...this.weatherData.flatMap(weather =>
       weather.dailyWeatherData
         .filter(daily => new Date(daily.infoDate).getDate() === day && new Date(daily.infoDate).getMonth() === month)
@@ -109,5 +111,29 @@ export class AppModalComponent {
 
     const averagePrecipitation = precipitation.reduce((sum, temp) => sum + temp, 0) / precipitation.length;
     this.precipitationAvg = averagePrecipitation.toString();
+
+    const maxHumidity = Math.max(...this.weatherData.flatMap(weather =>
+      weather.dailyWeatherData
+        .filter(daily => new Date(daily.infoDate).getDate() === day && new Date(daily.infoDate).getMonth() === month)
+        .map(daily => daily.humidity)
+    ));
+    this.humidityMax = maxHumidity.toString();
+    debugger;
+    let minHumidityArray = this.weatherData.flatMap(weather =>
+      weather.dailyWeatherData
+        .filter(daily => new Date(daily.infoDate).getDate() === day && new Date(daily.infoDate).getMonth() === month && daily.humidity > 0)
+        .map(daily => daily.humidity)
+    );
+    const minHumidity = minHumidityArray.length > 0 ? Math.min(...minHumidityArray) : 0;
+    this.humidityMin = minHumidity.toString();
+
+    const humidity = this.weatherData.flatMap(weather =>
+      weather.dailyWeatherData
+        .filter(daily => new Date(daily.infoDate).getDate() === day && new Date(daily.infoDate).getMonth() === month)
+        .map(daily => daily.humidity)
+    );
+
+    const averageHumidity = humidity.reduce((sum, temp) => sum + temp, 0) / humidity.length;
+    this.humidityAvg = averageHumidity.toString();
   }
 }

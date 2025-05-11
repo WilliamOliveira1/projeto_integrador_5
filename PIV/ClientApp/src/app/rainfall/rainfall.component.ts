@@ -36,17 +36,6 @@ columnsToDisplay1 = ['year', 'month', 'averagePrecipitation', 'averageTemperatur
   ngOnInit(): void {
     this.pageSize = 5;
     this.pageNo = 0;
-    //this.rainfallService.postRainfallData().subscribe(
-    //  (data: Weather[]) => {
-    //    debugger;
-        
-    //  },
-    //  (error: any) => {
-    //    debugger;
-    //    this.errorMessage = `Erro ao obter dados do tempo: ${error.message}`;
-    //    console.error('Erro ao obter dados do tempo', error);
-    //  }
-    //);
 
     this.rainfallService.getWeatherData().subscribe(
       (data: Weather[]) => {
@@ -136,6 +125,9 @@ columnsToDisplay1 = ['year', 'month', 'averagePrecipitation', 'averageTemperatur
     const month = firstDate.toLocaleString('default', { month: 'long' });
     const year = firstDate.getFullYear();
     const useHumidity = dailyWeatherData.some(d => d.humidity > 0);
+
+    const titlePart = useHumidity ? 'umidade' : 'precipitações pluviométricas';
+
     this.charts[index] = new Chart(canvas, {
       type: 'line',
       data: {
@@ -148,9 +140,15 @@ columnsToDisplay1 = ['year', 'month', 'averagePrecipitation', 'averageTemperatur
             fill: false
           },
           {
-            label: useHumidity ? 'Umidade' : 'Precipitação Pluviométrica',
-            data: useHumidity ? humidityData : precipitationData,
-            borderColor: useHumidity ? 'green' : 'blue',
+            label: 'Precipitação Pluviométrica',
+            data: precipitationData,
+            borderColor: 'blue',
+            fill: false
+          },
+          {
+            label: 'Umidade',
+            data: humidityData,
+            borderColor: 'green',
             fill: false
           }
         ]
@@ -160,7 +158,7 @@ columnsToDisplay1 = ['year', 'month', 'averagePrecipitation', 'averageTemperatur
         plugins: {
           title: {
             display: true,
-            text: `Gráfico comparativo de oscilações entre temperaturas e precipitações pluviométricas de ${month}/${year} na cidade de Sorocaba/SP - INMET(2024)`
+            text: `Gráfico comparativo de oscilações entre temperaturas e ${titlePart} de ${month}/${year} na cidade de Sorocaba/SP - INMET(2024)`
           }
         },
         scales: {
