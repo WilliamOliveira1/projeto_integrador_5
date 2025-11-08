@@ -61,6 +61,14 @@ namespace PIV.Services
             return _context.Weather.ToList();
         }
 
+        public List<Weather> GetNewestWeatherData(int takeCount)
+        {
+            return _context.Weather
+                           .OrderByDescending(w => w.InfoDate)
+                           .Take(takeCount)
+                           .ToList();
+        }
+
         public bool HasWeatherData()
         {
             return _context.Weather.Any();

@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ExportDailyWeather, Weather } from '../../angular-model/weather';
+import { RainfallService } from '../../services/rainfall/rainfall.service';
 
 @Component({
   selector: 'app-app-modal',
@@ -21,18 +22,24 @@ export class AppModalComponent {
   humidityMax: string | undefined;
   humidityMin: string | undefined;
   humidityAvg: string | undefined;
+  AiPrevision: string | undefined;
   modalDailyData: ExportDailyWeather;
   weatherData: Weather[];
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { daily: ExportDailyWeather, weatherData: Weather[] }) {
+  private dateValue: string = '';
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { daily: ExportDailyWeather, weatherData: Weather[] }, private rainfallService: RainfallService) {
     this.modalDailyData = data.daily;
     this.weatherData = data.weatherData;
     this.setModalData();
+    this.getAIprevisionOnWheather();
   }
 
   setModalData() {
     const daily = this.modalDailyData;
     const day = new Date(daily.infoDate).getDate();
     const month = new Date(daily.infoDate).getMonth();
+    const year = new Date(daily.infoDate).getFullYear();
+    this.dateValue = `${day}/${month}/${year}`;
 
     let totalElementsWithSimilarDate = this.weatherData.filter(weather =>
       weather.dailyWeatherData.some(daily =>
@@ -118,7 +125,6 @@ export class AppModalComponent {
         .map(daily => daily.humidity)
     ));
     this.humidityMax = maxHumidity.toString();
-    debugger;
     let minHumidityArray = this.weatherData.flatMap(weather =>
       weather.dailyWeatherData
         .filter(daily => new Date(daily.infoDate).getDate() === day && new Date(daily.infoDate).getMonth() === month && daily.humidity > 0)
@@ -135,5 +141,11 @@ export class AppModalComponent {
 
     const averageHumidity = humidity.reduce((sum, temp) => sum + temp, 0) / humidity.length;
     this.humidityAvg = averageHumidity.toString();
+  }
+
+  getAIprevisionOnWheather() {
+    this.rainfallService.getAIPrevision(this.dateValue).subscribe((response: any) => {
+      this.AiPrevision = response;
+    });
   }
 }

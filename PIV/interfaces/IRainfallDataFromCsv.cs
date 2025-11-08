@@ -9,6 +9,8 @@ namespace PIV.interfaces
 
         List<Weather> getRainfallData();
 
+        List<Weather> GetNewestWeatherData();
+
         bool saveNewRainfallData(string humidity, string temperature, string date);
     }
 }

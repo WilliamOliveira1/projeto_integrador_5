@@ -15,4 +15,9 @@ export class RainfallService {
   getWeatherData(): Observable<Weather[]> {
     return this.http.get<Weather[]>(this.baseApi);
   }
+
+  getAIPrevision(date: string): Observable<string> {
+    const params = new HttpParams().set('date', date);
+    return this.http.get<string>(`${this.baseApi}/getPrevision`, { params });
+  }
 }

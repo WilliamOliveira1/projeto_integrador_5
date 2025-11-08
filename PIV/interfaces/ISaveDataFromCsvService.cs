@@ -8,6 +8,8 @@ namespace PIV.interfaces
 
         List<Weather> GetAllWeatherData();
 
+        List<Weather> GetNewestWeatherData(int takeCount);
+
         bool HasWeatherData();
 
         void DeleteAllWeatherData();

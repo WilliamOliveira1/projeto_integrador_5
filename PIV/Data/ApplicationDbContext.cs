@@ -11,5 +11,6 @@ namespace PIV.Data
         }
 
         public DbSet<Weather> Weather { get; set; }
+        public DbSet<SensorData> SensorData { get; set; }
     }
 }

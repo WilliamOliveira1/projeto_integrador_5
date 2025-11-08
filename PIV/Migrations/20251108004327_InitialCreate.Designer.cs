@@ -11,8 +11,8 @@ using PIV.Data;
 namespace PIV.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250330200008_initial")]
-    partial class initial
+    [Migration("20251108004327_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,34 @@ namespace PIV.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("PIV.Models.SensorData", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<float>("Humidity")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("InfoDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<float>("Precipitation")
+                        .HasColumnType("float");
+
+                    b.Property<string>("SensorId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<float>("TemperatureC")
+                        .HasMaxLength(4)
+                        .HasColumnType("float");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("SensorData");
+                });
 
             modelBuilder.Entity("PIV.Models.Weather", b =>
                 {

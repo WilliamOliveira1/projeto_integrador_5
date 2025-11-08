@@ -6,11 +6,30 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PIV.Migrations
 {
-    public partial class initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "SensorData",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    InfoDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    SensorId = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Precipitation = table.Column<float>(type: "float", nullable: false),
+                    Humidity = table.Column<float>(type: "float", nullable: false),
+                    TemperatureC = table.Column<float>(type: "float", maxLength: 4, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SensorData", x => x.ID);
+                })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
@@ -33,6 +52,9 @@ namespace PIV.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "SensorData");
+
             migrationBuilder.DropTable(
                 name: "Weather");
         }

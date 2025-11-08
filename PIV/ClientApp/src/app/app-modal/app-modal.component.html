@@ -57,6 +57,29 @@
   </mat-expansion-panel>
 </mat-accordion>
 
+<mat-accordion class="m-4">
+  <mat-expansion-panel class="m-4 mb-0" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Analise futura dos dados</mat-panel-title>
+      <mat-panel-description>Previsão de umidade e precipitação com inteligencia artificial</mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-list role="list">
+      <div *ngIf="AiPrevision; else loading">
+        <span>A previsão média dos dados para semana seguinte à data selecionada:</span>
+        <mat-list-item role="listitem">
+          {{AiPrevision}}
+        </mat-list-item>
+      </div>      
+      <ng-template #loading>
+        <mat-list-item role="listitem">Por favor aguarde, carregando previsão...</mat-list-item>
+        <div class="spinner-container" aria-hidden="true">
+          <div class="spinner"></div>
+        </div>
+      </ng-template>
+    </mat-list>
+  </mat-expansion-panel>
+</mat-accordion>
+
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Fechar</button>
 </mat-dialog-actions>
